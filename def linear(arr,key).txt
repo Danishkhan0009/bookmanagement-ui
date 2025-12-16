@@ -1,0 +1,268 @@
+def linear(arr,key):
+    for i in range(len(arr)):
+        if arr[i]==key:
+            return i
+    return -1
+    
+arr=list(map(int,input("enter ele: ").split()))
+key=int(input("ENTER NUM: "))
+result=linear(arr,key)
+if result!=-1:
+    print(f" {key} element found")
+else:
+    print(f"{key} not found")
+
+
+
+def binary(arr,key):
+    low=0
+    high=len(arr)-1
+    while low<=high:
+        mid=(low+high)//2
+        if arr[mid]==key:
+            return mid
+        elif key<arr[mid]:
+            high=mid-1
+        else:
+            low =mid+1
+    return -1
+arr=list(map(int,input("enter Ele: ").split()))
+key=int(input("enter ele: "))
+result=binary(arr,key)
+if result!=-1:
+    print(f" {key} element found")
+else:
+    print(f"{key} not found")
+
+
+def quicksort(arr):
+    if len(arr) <=1:
+        return arr
+    
+    pivot = arr[len(arr)//2]
+    left = [ x for  x  in arr if x<pivot]
+    middle=[x for x in arr if x==pivot]
+    right=[x for x in arr if x>pivot]
+    return quicksort(left)+middle+quicksort(right)
+    
+
+arr=list(map(int,input("enter Ele: ").split()))
+
+order=quicksort(arr)
+print(order)
+
+
+
+class stack:
+    def __init__(self):
+        self.stack=[]
+    def push(self,item):
+        self.stack.append(item)
+        print("pushed")
+    def pop(self):
+        if self.isempty():
+            print("empty")
+        else:
+            self.stack.pop()
+    def peek(self):
+        if self.isempty():
+            print("empty")
+        else:
+            print("top", self.stack[-1])
+    def isempty(self):
+        return len(self.stack)==0
+        
+    def display(self):
+        if self.isempty():
+            print("empty")
+        else:
+            print("stack",self.stack)
+s=stack()
+while True:
+    print("1.push")
+    print("2.pop")
+    print("3.peek")
+    print("4.display")
+    print("5.exit")
+    choice= int(input("enter choice: "))
+    if choice==1:
+        item=int(input("enter insert: "))
+        s.push(item)
+    elif choice==2:
+        s.pop()
+    elif choice==3:
+        s.peek()
+    elif choice==4:
+        s.display()
+    else:
+        print("EXITING")
+        break
+        
+    class stack:
+    def __init__(self,size):
+        self.stack=[]
+        self.size=size
+    def push(self,item):
+        if len(self.stack)==self.size:
+            print('stack full')
+        else:
+            self.stack.append(item)
+            print("pushed")
+    def pop(self):
+        if self.isempty():
+            print("empty")
+        else:
+            self.stack.pop(0)
+    def peek(self):
+        if self.isempty():
+            print("empty")
+        else:
+            print("top", self.stack[0])
+    def isempty(self):
+        return len(self.stack)==0
+        
+    def display(self):
+        if self.isempty():
+            print("empty")
+        else:
+            print("stack",self.stack)
+size=5
+s=stack(size)
+
+while True:
+    print("1.push")
+    print("2.pop")
+    print("3.peek")
+    print("4.display")
+    print("5.exit")
+    choice= int(input("enter choice: "))
+    if choice==1:
+        item=int(input("enter insert: "))
+        s.push(item)
+    elif choice==2:
+        s.pop()
+    elif choice==3:
+        s.peek()
+    elif choice==4:
+        s.display()
+    else:
+        print("EXITING")
+        break
+replace stack with queue
+
+
+
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    # Insert at end
+    def append(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        
+        last = self.head
+        while last.next:
+            last = last.next
+        last.next = new_node
+
+    # Insert at beginning
+    def insert_at_beginning(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
+    # Insert after a value
+    def insert_after_value(self, prev_data, data):
+        temp = self.head
+        while temp and temp.data != prev_data:
+            temp = temp.next
+
+        if not temp:
+            print(f"Node with value {prev_data} not found.")
+            return
+
+        new_node = Node(data)
+        new_node.next = temp.next
+        temp.next = new_node
+
+    # Delete by value
+    def delete_node(self, key):
+        temp = self.head
+
+        # If head itself holds the key
+        if temp and temp.data == key:
+            self.head = temp.next
+            return
+
+        prev = None
+        while temp and temp.data != key:
+            prev = temp
+            temp = temp.next
+
+        if not temp:
+            print("Value not found in list.")
+            return
+
+        prev.next = temp.next
+
+    # Print list
+    def print_list(self):
+        temp = self.head
+        print("Linked List:")
+        while temp:
+            print(temp.data, end=" -> ")
+            temp = temp.next
+        print("None")
+
+
+# ---------------- MENU DRIVEN PROGRAM ----------------
+
+ll = SinglyLinkedList()
+
+while True:
+    print("\nOptions:")
+    print("1. Append node")
+    print("2. Insert at beginning")
+    print("3. Insert after a node")
+    print("4. Delete a node")
+    print("5. Print list")
+    print("6. Exit")
+
+    choice = int(input("Enter your choice: "))
+
+    if choice == 1:
+        val = int(input("Enter value to append: "))
+        ll.append(val)
+
+    elif choice == 2:
+        val = int(input("Enter value to insert at beginning: "))
+        ll.insert_at_beginning(val)
+
+    elif choice == 3:
+        prev = int(input("Enter value after which to insert: "))
+        val = int(input("Enter new value: "))
+        ll.insert_after_value(prev, val)
+
+    elif choice == 4:
+        key = int(input("Enter value to delete: "))
+        ll.delete_node(key)
+
+    elif choice == 5:
+        ll.print_list()
+
+    elif choice == 6:
+        print("Exiting...")
+        break
+
+    else:
+        print("Invalid choice. Try again.")
